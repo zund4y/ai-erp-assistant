@@ -1,0 +1,49 @@
+# --- ความลับและความปลอดภัย (สำคัญมาก) ---
+.env
+.env.*
+*.pem
+*.key
+*.crt
+
+# --- OS / IDE / ทั่วไป ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+
+# --- Python (AI Service) ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+.pytest_cache/
+.tox/
+
+# --- Go (Backend) ---
+bin/
+pkg/
+obj/
+*.exe
+*.dll
+*.so
+*.test
+*.out
+go.work.sum
+
+# --- Node.js / React (Frontend) ---
+node_modules/
+dist/
+build/
+.next/
+.out/
+.npm/
+.eslintcache
+*.tsbuildinfo
+
+# --- Docker ---
+# เราควรละไฟล์ข้อมูล Database จริงที่เก็บใน Volume ไว้ (ตามที่เราตั้งชื่อ pgdata)
+pgdata/
