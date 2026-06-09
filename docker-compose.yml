@@ -1,17 +1,31 @@
 version: '3.8'
 
 services:
+    # 1. ฐานข้อมูลหลัก (ERP Core)
   postgres-db:
     image: postgres:16
     container_name: erp_database
     environment:
-      POSTGRES_USER: admin_erp
-      POSTGRES_PASSWORD: kalonz
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: erpdb
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+    # 2. ฐานข้อมูลเวกเตอร์สำหรับ AI (Vector DB)
+  qdrant-db:
+    image: qdrant/qdrant:latest
+    container_name: erp-qdrant
+    ports:
+      - "6333:6333"   # REST API
+      - "6334:6334"   # gRPC API (Go ชอบใช้พอร์ตนี้เพราะเร็วกว่า)
+    volumes:
+      - qdrant_data:/qdrant/storage
+    restart: unless-stopped
 
 volumes:
   pgdata:
+  qdrant_data:
