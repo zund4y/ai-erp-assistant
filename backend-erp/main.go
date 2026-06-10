@@ -14,9 +14,14 @@ func main() {
 	cfg := config.LoadConfig()
 
 	// 2. เริ่มต้นเชื่อมต่อ Database และรัน GORM Mapping
-	_, err := database.NewPostgresConnection(cfg)
+	db, err := database.NewPostgresConnection(cfg)
 	if err != nil {
 		log.Fatalf("Critical Error: %v", err)
+	}
+
+	// 🚨 เรียกใช้งานสคริปต์เติมข้อมูลเริ่มต้นที่เราเพิ่งเขียนขึ้น
+	if err := database.SeedIdentityData(db); err != nil {
+		log.Fatalf("Failed to seed identity data: %v", err)
 	}
 
 	// 3. เริ่มต้นระบบ Web Server (Fiber)
